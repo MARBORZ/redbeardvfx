@@ -1,0 +1,60 @@
+@use '@app/styles/_tokens.scss' as *;
+@use '@shared/styles/_mixins.scss' as *;
+
+.about {
+  padding: 3rem 0;
+  background-color: var(--bg-deep);
+  border-bottom: 1px solid var(--divider);
+
+  @include respond-to('md') {
+    padding: 6rem 0;
+  }
+
+  &__container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+
+    @include respond-to('md') {
+      padding: 0 var(--spacing-xl);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    align-items: center;
+
+    @include respond-to('md') {
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  &__text {
+    width: 100%;
+  }
+
+  &__bio {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    text-align: center;
+    letter-spacing: 0.3px;
+
+    @include respond-to('sm') {
+      font-size: 0.98rem;
+      line-height: 1.75;
+    }
+
+    @include respond-to('md') {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+  }
+
+  &__cta {
+    display: flex;
+    justify-content: center;
+  }
+}

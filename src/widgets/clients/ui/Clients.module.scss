@@ -1,0 +1,134 @@
+@use "@app/styles/_tokens.scss" as *;
+@use "@shared/styles/_mixins.scss" as *;
+
+.clients {
+  padding: 3rem 0;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+
+  @include respond-to("md") {
+    padding: 6rem 0;
+  }
+
+  &__container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+
+    @include respond-to("md") {
+      padding: 0 var(--spacing-xl);
+    }
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem 1.2rem;
+    padding: 2rem;
+    overflow: hidden;
+
+    @include respond-to("sm") {
+      gap: 1rem 1.5rem;
+    }
+
+    @include respond-to("md") {
+      gap: 1.2rem 1.8rem;
+    }
+
+    @include respond-to("lg") {
+      gap: 1.4rem 2rem;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    @include smooth-transition;
+  }
+
+  &__logo {
+    font-size: 0.75rem;
+    cursor: default;
+    font-weight: 700;
+    color: var(--text-primary);
+    opacity: 0.3;
+    text-align: center;
+    font-family: var(--font-heading);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    @include smooth-transition;
+    line-height: 1.4;
+
+    &:hover {
+      transform: translateY(-10px);
+    }
+
+    @include respond-to("sm") {
+      font-size: 0.85rem;
+      letter-spacing: 1.8px;
+    }
+
+    @include respond-to("md") {
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+    }
+
+    @include respond-to("lg") {
+      font-size: 1rem;
+      letter-spacing: 2.2px;
+    }
+
+    .clients__item:hover & {
+      opacity: 0.7;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-2xl);
+    margin-top: var(--spacing-xl);
+    padding-block: var(--spacing-xl);
+    text-align: center;
+
+    @include respond-to('md') {
+      margin-top: var(--spacing-2xl);
+      gap: var(--spacing-xl);
+    }
+  }
+
+  &__title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-block: var(--spacing-lg);
+    letter-spacing: 1px;
+
+    @include respond-to('sm') {
+      font-size: 1.75rem;
+    }
+
+    @include respond-to('md') {
+      font-size: 2rem;
+    }
+
+    @include respond-to('lg') {
+      font-size: 2.2rem;
+    }
+  }
+
+  &__cta {
+    display: flex;
+    justify-content: center;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}

@@ -1,0 +1,85 @@
+@use '@app/styles/_tokens.scss' as *;
+@use '@shared/styles/_mixins.scss' as *;
+
+.burger-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // На десктопе скрываем весь блок бургера
+  @include respond-to('md') {
+    display: none;
+  }
+
+  &__button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    // Кнопка ДОЛЖНА быть выше оверлея, чтобы по ней можно было кликнуть для закрытия
+    z-index: 2000; 
+    position: relative; 
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; // Используем динамические единицы для мобилок (учитывает адресную строку)
+    
+    background: radial-gradient(
+      circle at center,
+      rgba(26, 26, 26, 0.98) 0%,
+      rgba(10, 10, 10, 1) 100%
+    );
+
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; // Ниже кнопки, но выше всего остального контента
+    
+    // Внутренний контейнер для ссылок, чтобы они не прилипали к краям
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+  }
+
+  &__link {
+    font-family: var(--font-heading);
+    text-align: center;
+    padding: 20px;
+    font-size: 2rem; // Увеличил размер для мобилки, 1.25 — это маловато
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transition: color 0.3s ease, transform 0.3s ease;
+
+    &:active {
+      transform: scale(0.95); // Эффект нажатия
+    }
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+}

@@ -1,0 +1,102 @@
+@use '@app/styles/_tokens.scss' as *;
+@use '@shared/styles/_mixins.scss' as *;
+
+.button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: 6px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  @include smooth-transition;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  border: none;
+  overflow: hidden;
+  color: #fff;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background-color: #0a0a0a;
+    transition: height 0.5s ease;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  &--primary {
+    background-color: rgba(211, 84, 0, 0.9);
+    color: #fff;
+    border: 1px solid rgba(211, 84, 0, 0.9);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+
+      &::before {
+        height: 100%;
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  &--outline {
+    background-color: rgba(255, 255, 255, 0.02);
+    color: var(--accent);
+    border: 1px solid rgba(211, 84, 0, 0.3);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background-color: rgba(211, 84, 0, 0.1);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  &--sm {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+  }
+
+  &--md {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: 0.85rem;
+  }
+
+  &--lg {
+    padding: 14px 32px;
+    font-size: 0.9rem;
+  }
+
+  &--xl {
+    padding: 18px 48px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+
+    @include respond-to('sm') {
+      padding: 20px 56px;
+      font-size: 1.05rem;
+    }
+
+    @include respond-to('lg') {
+      padding: 24px 64px;
+      font-size: 1.1rem;
+    }
+  }
+}

@@ -1,0 +1,100 @@
+@use '@app/styles/_tokens.scss' as *;
+@use '@shared/styles/_mixins.scss' as *;
+
+.expertise {
+  padding: 3rem 0;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--divider);
+
+  @include respond-to('md') {
+    padding: 6rem 0;
+  }
+
+  &__container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+
+    @include respond-to('md') {
+      padding: 0 var(--spacing-xl);
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+
+    @include respond-to('sm') {
+      gap: var(--spacing-xl);
+    }
+
+    @include respond-to('md') {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-2xl);
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__card {
+    padding: var(--spacing-lg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0;
+    background-color: rgba(17, 17, 17, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    @include smooth-transition;
+
+    @include respond-to('md') {
+      padding: var(--spacing-2xl);
+    }
+
+    &:hover {
+      border-color: rgba(211, 84, 0, 0.4);
+      background-color: rgba(17, 17, 17, 0.8);
+
+      .expertise__card-name {
+        color: var(--accent);
+      }
+    }
+  }
+
+  &__card-header {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid rgba(211, 84, 0, 0.2);
+  }
+
+  &__card-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-family: var(--font-heading);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    @include smooth-transition;
+
+    @include respond-to('md') {
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+    }
+  }
+
+  &__card-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    font-family: var(--font-body);
+    letter-spacing: 0.5px;
+  }
+
+  &__card-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+}

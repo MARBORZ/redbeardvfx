@@ -1,0 +1,40 @@
+:root {
+  /* Accent Colors */
+  --accent: #D35400;
+  --accent-dark: #A04000;
+  --accent-glow: #D3540066;
+
+  /* Background Colors */
+  --bg-deep: #0A0A0A;
+  --bg-primary: #1A1A1A;
+  --bg-card: #111111;
+  --bg-card-hover: #1E1E1E;
+
+  /* Border & Divider */
+  --border: #333333;
+  --divider: #2A2A2A;
+
+  /* Text Colors */
+  --text-primary: #E0E0E0;
+  --text-secondary: #999999;
+  --text-tertiary: #666666;
+  --text-white: #FFFFFF;
+
+  /* Fonts */
+  --font-body: 'Geist', sans-serif;
+  --font-heading: 'Geist Mono', monospace;
+
+  /* Spacing */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 32px;
+  --spacing-lg: 48px;
+  --spacing-xl: 64px;
+  --spacing-2xl: 96px;
+  --spacing-3xl: 128px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+}

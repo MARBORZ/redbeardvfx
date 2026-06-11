@@ -1,0 +1,31 @@
+# DEBUG
+
+18.03.2026
+
+<!-- - fix burger offsettop -->
+<!-- - fix header links -->
+
+- debug clients perspective
+<!-- - fix routing to best optimization -->
+- check if it`s possible to refact components.
+
+---
+
+# BACKEND
+
+29.03.2026
+
+- write VITE_URL
+- configure backend with emailer (resend)
+
+---
+
+# MEDIA QUERY BREAKPOINTS
+
+- sm: 640px
+- md: 768px
+- lg: 1024px
+- xl: 1280px
+- 2xl: 1536px
+
+- important to follow these media queries, and then adapt to the small versions of screen.

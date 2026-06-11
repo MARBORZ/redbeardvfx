@@ -1,0 +1,124 @@
+@use '@app/styles/_tokens.scss' as *;
+@use '@shared/styles/_mixins.scss' as *;
+
+.gallery {
+  padding: 0;
+  background-color: var(--bg-deep);
+
+  &__header {
+    padding: var(--spacing-lg) var(--spacing-lg);
+    max-width: 1500px;
+    margin: 0 auto;
+
+    @include respond-to('md') {
+      padding: var(--spacing-xl) 0;
+    }
+  }
+
+  &__container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1px;
+  }
+
+  &__row {
+    display: flex;
+    gap: 1px;
+    width: 100%;
+
+    &:first-child {
+      .gallery__card {
+        flex: 1;
+        height: 240px;
+
+        @include respond-to('md') {
+          height: 360px;
+        }
+      }
+    }
+
+    &:last-child {
+      .gallery__card {
+        flex: 1;
+        height: 240px;
+
+        @include respond-to('md') {
+          height: 360px;
+        }
+      }
+    }
+  }
+
+  &__card {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-card);
+    border-radius: 0;
+    flex: 1;
+
+    @include respond-to('md') {
+      min-height: 360px;
+    }
+  }
+
+  &__card-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9);
+    }
+  }
+
+  &__card-number {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 400;
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &__card-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    color: rgba(255, 255, 255, 1);
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    font-weight: 500;
+    font-family: var(--font-heading);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 2;
+  }
+}
