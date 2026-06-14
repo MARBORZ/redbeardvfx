@@ -68,6 +68,22 @@ export const projects: IProject[] = [
     image: 'https://picsum.photos/seed/robot/800/500',
     tags: ['CGI', '3D', 'Robot'],
   },
+  {
+    id: 'cybernetic-uprising',
+    title: 'Cybernetic Uprising',
+    description: 'Full-scale robotic uprising sequence with crowd simulation',
+    image: 'https://picsum.photos/seed/cyber/800/500',
+    tags: ['VFX', 'Simulation', '3D'],
+    width: 2,
+  },
+  {
+    id: 'arctic-collapse',
+    title: 'Arctic Collapse',
+    description: 'Glacial collapse environment and ice fracture effects',
+    image: 'https://picsum.photos/seed/arctic/800/500',
+    tags: ['Environment', 'FX', 'Houdini'],
+    width: 2,
+  },
 ];
 
 export const skills: ISkill[] = [

@@ -23,37 +23,74 @@
 
   &Grid {
     display: flex;
-    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
     width: 100%;
-    gap: 1px;
   }
 
-  &Row {
-    display: flex;
+  &PagedGrid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 220px);
+    grid-auto-flow: column;
     gap: 1px;
-    width: 100%;
+    min-width: 0;
 
-    &:first-child {
-      .galleryCard {
-        flex: 1;
-        height: 240px;
+    @include respond-to('md') {
+      grid-template-rows: repeat(2, 300px);
+    }
+  }
 
-        @include respond-to('md') {
-          height: 360px;
-        }
-      }
+  &PagerArrow {
+    flex-shrink: 0;
+    align-self: center;
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid rgba(255, 255, 255, 0.5);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+      @include smooth-transition(border-color, var(--transition-fast));
     }
 
-    &:last-child {
-      .galleryCard {
-        flex: 1;
-        height: 240px;
+    &:hover:not(:disabled)::before {
+      border-color: var(--accent);
+    }
 
-        @include respond-to('md') {
-          height: 360px;
-        }
+    &:disabled {
+      cursor: default;
+      opacity: 0.25;
+    }
+
+    @include respond-to('md') {
+      width: 40px;
+      height: 40px;
+
+      &::before {
+        width: 16px;
+        height: 16px;
       }
     }
+  }
+
+  &PagerArrowPrev::before {
+    transform: translate(-30%, -50%) rotate(135deg);
+  }
+
+  &PagerArrowNext::before {
+    transform: translate(-70%, -50%) rotate(-45deg);
   }
 
   &Mobile {
@@ -77,14 +114,19 @@
     overflow: hidden;
     background-color: var(--bg-card);
     border-radius: 0;
-    flex: 1;
     cursor: pointer;
     will-change: transform;
     transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-    @include respond-to('md') {
-      min-height: 360px;
-    }
+  &CardWrapper {
+    width: 100%;
+    height: 100%;
+  }
+
+  &PagedGrid &Card {
+    width: 100%;
+    height: 100%;
   }
 
   &Grid:hover &Card:not(:hover) {
@@ -96,42 +138,8 @@
   &Card:hover {
     @include respond-to('md') {
       z-index: 5;
+      transform: scale(1.06);
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-    }
-  }
-
-  // First card in a row: anchored bottom-right, pops toward top-left —
-  // reveals the gap to its right.
-  &Row &Card:first-child {
-    transform-origin: bottom right;
-
-    &:hover {
-      @include respond-to('md') {
-        transform: translate(-14px, -18px) scale(1.06);
-      }
-    }
-  }
-
-  // Last card in a row: anchored bottom-left, pops toward top-right —
-  // reveals the gap to its left.
-  &Row &Card:last-child {
-    transform-origin: bottom left;
-
-    &:hover {
-      @include respond-to('md') {
-        transform: translate(14px, -18px) scale(1.06);
-      }
-    }
-  }
-
-  // Middle card (3-up row): just approaches the viewer, no lateral shift.
-  &Row &Card:not(:first-child):not(:last-child) {
-    transform-origin: center;
-
-    &:hover {
-      @include respond-to('md') {
-        transform: translateY(-14px) scale(1.06);
-      }
     }
   }
 
@@ -147,40 +155,6 @@
     justify-content: center;
     gap: var(--spacing-2xl);
     padding-bottom: var(--spacing-md);
-  }
-
-  &Arrow {
-    position: relative;
-    width: 28px;
-    height: 28px;
-    border: none;
-    background-color: transparent;
-    padding: 0;
-    cursor: pointer;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 10px;
-      height: 10px;
-      border-right: 2px solid rgba(255, 255, 255, 0.5);
-      border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-      @include smooth-transition(border-color, var(--transition-fast));
-    }
-
-    &:hover::before {
-      border-color: var(--accent);
-    }
-  }
-
-  &ArrowPrev::before {
-    transform: translate(-30%, -50%) rotate(135deg);
-  }
-
-  &ArrowNext::before {
-    transform: translate(-70%, -50%) rotate(-45deg);
   }
 
   &CardImage {
@@ -202,13 +176,15 @@
       z-index: 1;
     }
 
-    img {
+    img,
+    video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: brightness(0.9);
     }
   }
+
 
   &CardNumber {
     position: absolute;
@@ -250,6 +226,8 @@
 
   &OverlayCard {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 900px;
     max-height: 88vh;
@@ -257,10 +235,20 @@
     background-color: var(--bg-card);
     border-radius: 4px;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 
-    @include respond-to('md') {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
     }
   }
 
@@ -268,15 +256,16 @@
     position: relative;
     width: 100%;
     height: 240px;
+    flex-shrink: 0;
     overflow: hidden;
     background-color: var(--bg-primary);
 
     @include respond-to('md') {
-      height: 100%;
-      min-height: 480px;
+      height: 360px;
     }
 
-    img {
+    img,
+    video {
       width: 100%;
       height: 100%;
       object-fit: cover;

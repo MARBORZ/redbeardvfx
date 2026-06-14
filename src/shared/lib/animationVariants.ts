@@ -25,8 +25,9 @@ export const revealLeft = {
     x: 0,
     rotate: 0,
     transition: {
-      duration: 1.3,
-      ease: easeOutExpo,
+      x: { duration: 1.3, ease: easeOutExpo },
+      rotate: { duration: 1.3, ease: easeOutExpo },
+      opacity: { duration: 0.6, ease: 'easeOut' },
     },
   },
 }
@@ -39,8 +40,9 @@ export const revealRight = {
     x: 0,
     rotate: 0,
     transition: {
-      duration: 1.3,
-      ease: easeOutExpo,
+      x: { duration: 1.3, ease: easeOutExpo },
+      rotate: { duration: 1.3, ease: easeOutExpo },
+      opacity: { duration: 0.6, ease: 'easeOut' },
     },
   },
 }

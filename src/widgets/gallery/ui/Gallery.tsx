@@ -36,8 +36,14 @@ export const Gallery: FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
   const [activeProject, setActiveProject] = useState<IProject | null>(null)
 
-  const largeProjects = projects.filter(p => p.width === 2)
-  const mediumProjects = projects.filter(p => p.width !== 2)
+  // Sliding 3-column x 2-row window: each step advances by one column (2 cards).
+  const WINDOW_SIZE = 6
+  const STEP = 2
+  const [start, setStart] = useState(0)
+  const maxStart = Math.max(0, projects.length - WINDOW_SIZE)
+  const visibleProjects = projects.slice(start, start + WINDOW_SIZE)
+  const canGoPrev = start > 0
+  const canGoNext = start < maxStart
 
   return (
     <section className={styles.gallery} id="works">
@@ -74,14 +80,14 @@ export const Gallery: FC = () => {
               <button
                 type="button"
                 aria-label="Previous project"
-                className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`}
+                className={`${styles.galleryPagerArrow} ${styles.galleryPagerArrowPrev}`}
                 onClick={() => emblaApi?.scrollPrev()}
               />
 
               <button
                 type="button"
                 aria-label="Next project"
-                className={`${styles.galleryArrow} ${styles.galleryArrowNext}`}
+                className={`${styles.galleryPagerArrow} ${styles.galleryPagerArrowNext}`}
                 onClick={() => emblaApi?.scrollNext()}
               />
             </div>
@@ -93,49 +99,50 @@ export const Gallery: FC = () => {
             style={{ transform: isWideScreen ? getTransform() : 'none' }}
             {...containerAnimation}
           >
-            {/* Row 1: Large projects (2 x 50%) */}
-            <div className={styles.galleryRow}>
-              {largeProjects.map((project, idx) => (
-                <motion.article
-                  key={project.id}
-                  className={styles.galleryCard}
-                  onClick={() => setActiveProject(project)}
-                  {...itemAnimation}
-                >
-                  <div className={styles.galleryCardImage}>
-                    <img src={project.image} alt={project.title} />
-                  </div>
-                  <div className={styles.galleryCardNumber}>
-                    {String(idx + 1).padStart(2, '0')}
-                  </div>
-                  <div className={styles.galleryCardLabel}>
-                    {project.title}
-                  </div>
-                </motion.article>
-              ))}
+            <button
+              type="button"
+              aria-label="Previous projects"
+              disabled={!canGoPrev}
+              className={`${styles.galleryPagerArrow} ${styles.galleryPagerArrowPrev}`}
+              onClick={() => setStart((s) => Math.max(0, s - STEP))}
+            />
+
+            <div className={styles.galleryPagedGrid}>
+              <AnimatePresence mode="popLayout" initial={false}>
+                {visibleProjects.map((project, idx) => (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    className={styles.galleryCardWrapper}
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -40 }}
+                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], layout: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }}
+                    {...itemAnimation}
+                  >
+                    <article className={styles.galleryCard} onClick={() => setActiveProject(project)}>
+                      <div className={styles.galleryCardImage}>
+                        <img src={project.image} alt={project.title} />
+                      </div>
+                      <div className={styles.galleryCardNumber}>
+                        {String(start + idx + 1).padStart(2, '0')}
+                      </div>
+                      <div className={styles.galleryCardLabel}>
+                        {project.title}
+                      </div>
+                    </article>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
 
-            {/* Row 2: Medium projects (3 x 33%) */}
-            <div className={styles.galleryRow}>
-              {mediumProjects.map((project, idx) => (
-                <motion.article
-                  key={project.id}
-                  className={styles.galleryCard}
-                  onClick={() => setActiveProject(project)}
-                  {...itemAnimation}
-                >
-                  <div className={styles.galleryCardImage}>
-                    <img src={project.image} alt={project.title} />
-                  </div>
-                  <div className={styles.galleryCardNumber}>
-                    {String(largeProjects.length + idx + 1).padStart(2, '0')}
-                  </div>
-                  <div className={styles.galleryCardLabel}>
-                    {project.title}
-                  </div>
-                </motion.article>
-              ))}
-            </div>
+            <button
+              type="button"
+              aria-label="Next projects"
+              disabled={!canGoNext}
+              className={`${styles.galleryPagerArrow} ${styles.galleryPagerArrowNext}`}
+              onClick={() => setStart((s) => Math.min(maxStart, s + STEP))}
+            />
           </motion.div>
         )}
       </div>
