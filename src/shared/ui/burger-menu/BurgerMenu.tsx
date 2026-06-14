@@ -10,7 +10,6 @@
 
 import { FC, MouseEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useIsMobile } from '@shared/lib/useIsMobile'
 import styles from './BurgerMenu.module.scss'
 
 interface INavItem {
@@ -32,15 +31,10 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({
   navItems,
   onNavClick,
 }) => {
-  const isMobile = useIsMobile();
   const navigate = useNavigate();
 
-  if (!isMobile) {
-    return null;
-  }
-
   return (
-    <div className={styles["burger-menu"]}>
+    <div className={styles.burgerMenu}>
       {/* Burger button */}
       <button
         type="button"
@@ -49,14 +43,14 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({
           onToggle();
         }}
         aria-label="Toggle menu"
-        className={styles["burger-menu__button"]}
+        className={styles.burgerMenuButton}
       >
         <svg
           width="32" // Оптимальный размер: не мелкий, не огромный
           height="32"
           viewBox="0 0 32 32"
           fill="none"
-          className={styles["burger-menu__icon"]}
+          className={styles.burgerMenuIcon}
           style={{ overflow: "visible" }}
         >
           {/* Верхняя линия */}
@@ -117,25 +111,19 @@ export const BurgerMenu: FC<IBurgerMenuProps> = ({
 
       {/* Mobile menu */}
       {isOpen && (
-        <nav className={styles["burger-menu__overlay"]}>
+        <nav className={styles.burgerMenuOverlay}>
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className={styles["burger-menu__link"]}
-              onClick={(e: any) => {
-                e.preventDefault();
-                onToggle();
-
+              className={styles.burgerMenuLink}
+              onClick={(e) => {
                 if (item.isRoute) {
+                  e.preventDefault();
+                  onToggle();
                   navigate(item.href);
                 } else {
-                  setTimeout(() => {
-                    const element = document.querySelector(item.href);
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }
-                  }, 50);
+                  onNavClick(e);
                 }
               }}
             >

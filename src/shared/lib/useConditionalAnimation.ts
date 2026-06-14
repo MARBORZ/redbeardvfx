@@ -1,7 +1,7 @@
-import { useIsMobile } from './useIsMobile'
+import { useMediaQuery } from './useMediaQuery'
 
 export const useConditionalAnimation = (config: any) => {
-  const isMobile = useIsMobile()
+  const isMobile = useMediaQuery('(max-width: 767px)')
 
   if (isMobile) return {} as any
 

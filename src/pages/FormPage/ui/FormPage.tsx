@@ -2,10 +2,10 @@
  * Form Page (Contact Page)
  *
  * EN: Contact form page for inquiries and professional communication.
- *     Features form validation, submission handling, and status feedback with glassmorphism styling.
+ *     Features form validation, submission handling, and status feedback.
  *
  * RU: Страница контактной формы для запросов и профессионального общения.
- *     Включает валидацию формы, обработку отправки и обратную связь статуса с стилем glassmorphism.
+ *     Включает валидацию формы, обработку отправки и обратную связь статуса.
  */
 
 import { FC, useState } from 'react'
@@ -13,12 +13,24 @@ import { motion } from 'motion/react'
 import { Header } from '@widgets/header'
 import { Footer } from '@widgets/footer'
 import { Button } from '@shared/ui/button'
-import { titleReveal, fadeUp } from '@shared/lib/animationVariants'
-import { useIsMobile } from '@shared/lib/useIsMobile'
+import { revealLeft, fadeUp } from '@shared/lib/animationVariants'
+import { useConditionalAnimation } from '@shared/lib/useConditionalAnimation'
 import styles from './FormPage.module.scss'
 
 export const FormPage: FC = () => {
-  const isMobile = useIsMobile()
+  const infoAnimation = useConditionalAnimation({
+    initial: 'hidden',
+    whileInView: 'visible',
+    viewport: { once: true },
+    variants: revealLeft,
+  })
+  const formAnimation = useConditionalAnimation({
+    initial: 'hidden',
+    whileInView: 'visible',
+    viewport: { once: true },
+    variants: fadeUp,
+    transition: { delay: 0.15 },
+  })
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,10 +41,9 @@ export const FormPage: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }))
@@ -46,12 +57,12 @@ export const FormPage: FC = () => {
     try {
       const urlAPI = import.meta.env.VITE_URL
       const response = await fetch(urlAPI, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      });
+      })
 
       if (response.ok) {
         setFormData({ name: '', email: '', subject: '', message: '' })
@@ -76,236 +87,124 @@ export const FormPage: FC = () => {
       <main className={styles.formPage}>
         <section className={styles.formSection}>
           <div className={styles.formContainer}>
-            {isMobile ? (
-              <div className={styles.formHeader}>
-                <h1 className={styles.title}>Get in Touch</h1>
-                <p className={styles.subtitle}>
-                  Have a project in mind? Let's work together to bring your vision
-                  to life.
-                </p>
-              </div>
-            ) : (
-              <motion.div
-                className={styles.formHeader}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={titleReveal as any}
-              >
-                <h1 className={styles.title}>Get in Touch</h1>
-                <p className={styles.subtitle}>
-                  Have a project in mind? Let's work together to bring your vision
-                  to life.
-                </p>
-              </motion.div>
-            )}
-
-            {submitStatus === "success" && (
-              <motion.div
-                className={styles.successMessage}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-              >
-                <span className={styles.successIcon}>✓</span>
-                <p>Thank you! Your message has been sent successfully.</p>
-              </motion.div>
-            )}
-
-            {submitStatus === "error" && (
-              <motion.div
-                className={styles.errorMessage}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-              >
-                <span className={styles.errorIcon}>!</span>
-                <p>Oops! Something went wrong. Please try again.</p>
-              </motion.div>
-            )}
-
-            {isMobile ? (
-              <form className={styles.form} onSubmit={handleSubmit}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="name" className={styles.label}>
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="Your name"
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="email" className={styles.label}>
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="your@email.com"
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="subject" className={styles.label}>
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="Project details"
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="message" className={styles.label}>
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    className={styles.textarea}
-                    placeholder="Tell me about your project..."
-                    rows={6}
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="lg"
-                  disabled={isSubmitting}
-                  className={styles.submitButton}
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            ) : (
-              <motion.form
-                className={styles.form}
-                onSubmit={handleSubmit}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp as any}
-                transition={{ delay: 0.2 }}
-              >
-                <div className={styles.formGroup}>
-                  <label htmlFor="name" className={styles.label}>
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="Your name"
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="email" className={styles.label}>
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="your@email.com"
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="subject" className={styles.label}>
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className={styles.input}
-                    placeholder="Project details"
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="message" className={styles.label}>
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    className={styles.textarea}
-                    placeholder="Tell me about your project..."
-                    rows={6}
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="lg"
-                  disabled={isSubmitting}
-                  className={styles.submitButton}
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </motion.form>
-            )}
-
-            <div className={styles.info}>
-              <p className={styles.infoText}>
-                Or reach out directly at{" "}
-                <a href="mailto:rustammasuev@gmail.com" className={styles.link}>
-                  rustammasuev@gmail.com
-                </a>
+            <motion.div className={styles.info} {...infoAnimation}>
+              <p className={styles.infoLabel}>Get In Touch</p>
+              <h1 className={styles.infoTitle}>Let's start a conversation.</h1>
+              <p className={styles.infoSubtitle}>
+                Have a project in mind? Tell me about it and I'll get back to you as soon as
+                possible.
               </p>
-            </div>
+
+              <a href="mailto:rustammasuev@gmail.com" className={styles.infoEmail}>
+                rustammasuev@gmail.com
+              </a>
+            </motion.div>
+
+            <motion.form className={styles.form} onSubmit={handleSubmit} {...formAnimation}>
+              {submitStatus === 'success' && (
+                <motion.div
+                  className={styles.formMessage}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  Thank you! Your message has been sent.
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.div
+                  className={`${styles.formMessage} ${styles.formMessageError}`}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  Something went wrong. Please try again.
+                </motion.div>
+              )}
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="name" className={styles.label}>
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className={styles.input}
+                    placeholder="Your name"
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="email" className={styles.label}>
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className={styles.input}
+                    placeholder="your@email.com"
+                    disabled={isSubmitting}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="subject" className={styles.label}>
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  className={styles.input}
+                  placeholder="Project details"
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="message" className={styles.label}>
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  className={styles.textarea}
+                  placeholder="Tell me about your project..."
+                  rows={5}
+                  disabled={isSubmitting}
+                />
+              </div>
+
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                disabled={isSubmitting}
+                className={styles.submitButton}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </Button>
+            </motion.form>
           </div>
         </section>
       </main>
       <Footer />
     </>
-  );
+  )
 }

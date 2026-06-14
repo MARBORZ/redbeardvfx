@@ -8,7 +8,7 @@
  *     Включает меню навигации для рабочего стола и мобильное меню-бургер с плавной прокруткой.
  */
 
-import { useState, useEffect, FC, MouseEvent } from "react";
+import { useState, FC, MouseEvent } from "react";
 import { BurgerMenu } from "@shared/ui/burger-menu";
 import styles from "./Header.module.scss";
 import { useNavigate, useLocation } from "react-router";
@@ -20,8 +20,8 @@ interface NavItem {
 }
 
 const PORTFOLIO_NAV_ITEMS: NavItem[] = [
-  { href: "#works", label: "Works" },
   { href: "#services", label: "Services" },
+  { href: "#works", label: "Works" },
   { href: "#about", label: "About" },
   { href: "#clients", label: "Clients" },
   { href: "#contact", label: "Contact" },
@@ -66,35 +66,22 @@ export const Header: FC = () => {
     }
   };
 
-  useEffect(() => {
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = originalStyle;
-    }
-
-    return () => {
-      document.body.style.overflow = originalStyle;
-    };
-  }, [isMenuOpen]);
-
   return (
     <header className={styles.header}>
-      <div className={styles.header__container}>
-        <div className={styles["header__logo"]}>
+      <div className={styles.headerContainer}>
+        <div className={styles.headerLogo}>
           <a href="/" onClick={handleLogoClick}>
             REDBEARDVFX
           </a>
         </div>
 
         {/* Desktop navigation */}
-        <nav className={styles["header__nav"]}>
+        <nav className={styles.headerNav}>
           {navItems?.map((item, idx) => (
             <a
               key={item.href}
               href={item.href}
-              className={styles["header__nav-link"]}
+              className={styles.headerNavLink}
               data-index={String(idx + 1).padStart(2, "0")}
               onClick={(e) => {
                 if (item.isRoute) {

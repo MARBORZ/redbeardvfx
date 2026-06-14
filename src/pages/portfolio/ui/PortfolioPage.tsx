@@ -15,6 +15,7 @@ import { Gallery } from '@widgets/gallery'
 import { Expertise } from '@widgets/expertise'
 import { About } from '@widgets/about'
 import { Clients } from '@widgets/clients'
+import { Cta } from '@widgets/cta'
 import { Footer } from '@widgets/footer'
 
 export const PortfolioPage: FC = () => {
@@ -22,10 +23,11 @@ export const PortfolioPage: FC = () => {
     <>
       <Header />
       <Hero />
-      <Gallery />
       <Expertise />
+      <Gallery />
       <About />
       <Clients />
+      <Cta />
       <Footer />
     </>
   )

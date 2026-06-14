@@ -3,16 +3,19 @@
  * Импортируй и используй эти объекты вместо создания переменных в компонентах
  */
 
+const easeOutExpo = [0.16, 1, 0.3, 1]
+const springSoft = { type: "spring", stiffness: 90, damping: 16, mass: 0.9 }
+
 export const titleRevealAnimation = {
   initial: "hidden",
   animate: "visible",
   variants: {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    hidden: { opacity: 0, y: 30, scale: 0.94 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.8, ease: easeOutExpo },
     },
   },
 }
@@ -27,7 +30,7 @@ export const titleRevealViewAnimation = {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.8, ease: easeOutExpo },
     },
   },
 }
@@ -40,7 +43,7 @@ export const fadeUpAnimation = {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: easeOutExpo },
     },
   },
 }
@@ -54,7 +57,7 @@ export const fadeUpViewAnimation = {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: easeOutExpo },
     },
   },
 }
@@ -68,7 +71,7 @@ export const fadeUpWithDelayAnimation = (delay: number = 0.2) => ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut", delay },
+      transition: { duration: 0.6, ease: easeOutExpo, delay },
     },
   },
 })
@@ -77,11 +80,12 @@ export const floatInAnimation = {
   initial: "hidden",
   animate: "visible",
   variants: {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30, scale: 0.97 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 1.2, ease: "easeOut" },
+      scale: 1,
+      transition: springSoft,
     },
   },
 }
@@ -90,14 +94,14 @@ export const successMessageAnimation = {
   initial: { opacity: 0, y: -10 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -10 },
-  transition: { duration: 0.4, ease: "easeOut" },
+  transition: { duration: 0.4, ease: easeOutExpo },
 }
 
 export const errorMessageAnimation = {
   initial: { opacity: 0, y: -10 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -10 },
-  transition: { duration: 0.4, ease: "easeOut" },
+  transition: { duration: 0.4, ease: easeOutExpo },
 }
 
 export const staggerContainerAnimation = {
@@ -122,7 +126,7 @@ export const staggerItemAnimation = {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: easeOutExpo },
     },
   },
 }

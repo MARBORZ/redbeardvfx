@@ -17,18 +17,18 @@
     min-height: auto;
   }
 
-  &__container {
+  &Container {
     @include flex-between;
-    max-width: 1280px;
+    max-width: 1500px;
     margin: 0 auto;
-    padding: 0 var(--spacing-md);
+    padding: 0 var(--spacing-lg);
 
     @include respond-to('md') {
       padding: 0 var(--spacing-xl);
     }
   }
 
-  &__logo {
+  &Logo {
     font-family: var(--font-heading);
     font-size: 0.75rem;
     font-weight: 500;
@@ -47,7 +47,7 @@
     }
   }
 
-  &__nav {
+  &Nav {
     display: none;
     gap: var(--spacing-xl);
 
@@ -60,7 +60,7 @@
     }
   }
 
-  &__nav-link {
+  &NavLink {
     font-family: var(--font-heading);
     font-size: 0.75rem;
     color: var(--text-secondary);

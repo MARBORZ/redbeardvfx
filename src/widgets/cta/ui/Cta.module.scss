@@ -1,0 +1,98 @@
+@use '@app/styles/_tokens.scss' as *;
+@use '@shared/styles/_mixins.scss' as *;
+
+.cta {
+  padding: 5rem 0;
+  background-color: var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+
+  @include respond-to('md') {
+    padding: 10rem 0;
+  }
+
+  &Container {
+    width: 100%;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xl);
+    text-align: center;
+
+    @include respond-to('md') {
+      padding: 0 var(--spacing-xl);
+      gap: var(--spacing-2xl);
+    }
+  }
+
+  &Label {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 var(--spacing-md);
+    opacity: 0.85;
+
+    @include respond-to('md') {
+      font-size: 0.85rem;
+      letter-spacing: 2.5px;
+    }
+  }
+
+  &Title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-primary);
+    letter-spacing: 1px;
+    margin: 0 0 var(--spacing-lg);
+    text-wrap: balance;
+
+    @include respond-to('sm') {
+      font-size: 2.25rem;
+    }
+
+    @include respond-to('md') {
+      font-size: 2.75rem;
+    }
+
+    @include respond-to('lg') {
+      font-size: 3.25rem;
+    }
+
+    @include respond-to('xl') {
+      font-size: 4.25rem;
+    }
+  }
+
+  &Subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    letter-spacing: 0.3px;
+    max-width: var(--text-max-width);
+    margin: 0 auto;
+    opacity: 0.85;
+
+    @include respond-to('md') {
+      font-size: 1.05rem;
+    }
+  }
+
+  &Button {
+    display: flex;
+    justify-content: center;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}

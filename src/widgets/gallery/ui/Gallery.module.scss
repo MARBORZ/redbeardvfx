@@ -5,36 +5,36 @@
   padding: 0;
   background-color: var(--bg-deep);
 
-  &__header {
+  &Header {
     padding: var(--spacing-lg) var(--spacing-lg);
     max-width: 1500px;
     margin: 0 auto;
 
     @include respond-to('md') {
-      padding: var(--spacing-xl) 0;
+      padding: var(--spacing-xl) var(--spacing-xl);
     }
   }
 
-  &__container {
+  &Container {
     max-width: 100%;
     margin: 0 auto;
     padding: 0;
   }
 
-  &__grid {
+  &Grid {
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 1px;
   }
 
-  &__row {
+  &Row {
     display: flex;
     gap: 1px;
     width: 100%;
 
     &:first-child {
-      .gallery__card {
+      .galleryCard {
         flex: 1;
         height: 240px;
 
@@ -45,7 +45,7 @@
     }
 
     &:last-child {
-      .gallery__card {
+      .galleryCard {
         flex: 1;
         height: 240px;
 
@@ -56,19 +56,134 @@
     }
   }
 
-  &__card {
+  &Mobile {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    width: 100%;
+  }
+
+  &Viewport {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  &EmblaContainer {
+    display: flex;
+  }
+
+  &Card {
     position: relative;
     overflow: hidden;
     background-color: var(--bg-card);
     border-radius: 0;
     flex: 1;
+    cursor: pointer;
+    will-change: transform;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 
     @include respond-to('md') {
       min-height: 360px;
     }
   }
 
-  &__card-image {
+  &Grid:hover &Card:not(:hover) {
+    @include respond-to('md') {
+      opacity: 0.4;
+    }
+  }
+
+  &Card:hover {
+    @include respond-to('md') {
+      z-index: 5;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  // First card in a row: anchored bottom-right, pops toward top-left —
+  // reveals the gap to its right.
+  &Row &Card:first-child {
+    transform-origin: bottom right;
+
+    &:hover {
+      @include respond-to('md') {
+        transform: translate(-14px, -18px) scale(1.06);
+      }
+    }
+  }
+
+  // Last card in a row: anchored bottom-left, pops toward top-right —
+  // reveals the gap to its left.
+  &Row &Card:last-child {
+    transform-origin: bottom left;
+
+    &:hover {
+      @include respond-to('md') {
+        transform: translate(14px, -18px) scale(1.06);
+      }
+    }
+  }
+
+  // Middle card (3-up row): just approaches the viewer, no lateral shift.
+  &Row &Card:not(:first-child):not(:last-child) {
+    transform-origin: center;
+
+    &:hover {
+      @include respond-to('md') {
+        transform: translateY(-14px) scale(1.06);
+      }
+    }
+  }
+
+  &Mobile &Card {
+    height: 70vw;
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+
+  &Pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2xl);
+    padding-bottom: var(--spacing-md);
+  }
+
+  &Arrow {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid rgba(255, 255, 255, 0.5);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+      @include smooth-transition(border-color, var(--transition-fast));
+    }
+
+    &:hover::before {
+      border-color: var(--accent);
+    }
+  }
+
+  &ArrowPrev::before {
+    transform: translate(-30%, -50%) rotate(135deg);
+  }
+
+  &ArrowNext::before {
+    transform: translate(-70%, -50%) rotate(-45deg);
+  }
+
+  &CardImage {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -95,7 +210,7 @@
     }
   }
 
-  &__card-number {
+  &CardNumber {
     position: absolute;
     top: 16px;
     left: 16px;
@@ -108,7 +223,7 @@
     z-index: 2;
   }
 
-  &__card-label {
+  &CardLabel {
     position: absolute;
     bottom: 16px;
     left: 16px;
@@ -120,5 +235,121 @@
     text-transform: uppercase;
     pointer-events: none;
     z-index: 2;
+  }
+
+  &Overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+
+  &OverlayCard {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    max-height: 88vh;
+    overflow-y: auto;
+    background-color: var(--bg-card);
+    border-radius: 4px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+
+    @include respond-to('md') {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+    }
+  }
+
+  &OverlayImage {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+
+    @include respond-to('md') {
+      height: 100%;
+      min-height: 480px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &OverlayContent {
+    padding: var(--spacing-md);
+
+    @include respond-to('md') {
+      padding: var(--spacing-lg);
+    }
+  }
+
+  &OverlayTitle {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &OverlayDescription {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+  }
+
+  &OverlayTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  &OverlayTag {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+  }
+
+  &OverlayClose {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 2;
+    @include smooth-transition(background-color, var(--transition-fast));
+
+    &:hover {
+      background-color: var(--accent);
+    }
+
+    span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 2px;
+      background-color: #fff;
+
+      &:first-child {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+
+      &:last-child {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+    }
   }
 }

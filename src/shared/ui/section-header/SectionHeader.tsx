@@ -11,7 +11,6 @@
 import { FC } from 'react'
 import { motion } from 'motion/react'
 import { titleReveal } from '@shared/lib/animationVariants'
-import { useIsMobile } from '@shared/lib/useIsMobile'
 import { useConditionalAnimation } from '@shared/lib/useConditionalAnimation'
 import styles from './SectionHeader.module.scss'
 
@@ -22,8 +21,6 @@ interface SectionHeaderProps {
 }
 
 export const SectionHeader: FC<SectionHeaderProps> = ({ label, title, subtitle }) => {
-  const isMobile = useIsMobile()
-
   const sectionHeaderAnimation = useConditionalAnimation({
     initial: 'hidden',
     whileInView: 'visible',
@@ -31,21 +28,11 @@ export const SectionHeader: FC<SectionHeaderProps> = ({ label, title, subtitle }
     variants: titleReveal,
   })
 
-  if (isMobile) {
-    return (
-      <div className={styles['section-header']}>
-        <p className={styles['section-header__label']}>{label}</p>
-        <h2 className={styles['section-header__title']}>{title}</h2>
-        {subtitle && <p className={styles['section-header__subtitle']}>{subtitle}</p>}
-      </div>
-    )
-  }
-
   return (
-    <motion.div className={styles['section-header']} {...sectionHeaderAnimation}>
-      <p className={styles['section-header__label']}>{label}</p>
-      <h2 className={styles['section-header__title']}>{title}</h2>
-      {subtitle && <p className={styles['section-header__subtitle']}>{subtitle}</p>}
+    <motion.div className={styles.sectionHeader} {...sectionHeaderAnimation}>
+      <p className={styles.sectionHeaderLabel}>{label}</p>
+      <h2 className={styles.sectionHeaderTitle}>{title}</h2>
+      {subtitle && <p className={styles.sectionHeaderSubtitle}>{subtitle}</p>}
     </motion.div>
   )
 }

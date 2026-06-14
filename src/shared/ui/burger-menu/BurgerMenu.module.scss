@@ -1,7 +1,7 @@
 @use '@app/styles/_tokens.scss' as *;
 @use '@shared/styles/_mixins.scss' as *;
 
-.burger-menu {
+.burgerMenu {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,7 +11,7 @@
     display: none;
   }
 
-  &__button {
+  &Button {
     background: none;
     border: none;
     cursor: pointer;
@@ -21,8 +21,8 @@
     justify-content: center;
     text-align: center;
     // Кнопка ДОЛЖНА быть выше оверлея, чтобы по ней можно было кликнуть для закрытия
-    z-index: 2000; 
-    position: relative; 
+    z-index: 2000;
+    position: relative;
     transition: transform 0.3s ease;
 
     &:hover {
@@ -30,14 +30,14 @@
     }
   }
 
-  &__overlay {
+  &Overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     height: 100dvh; // Используем динамические единицы для мобилок (учитывает адресную строку)
-    
+
     background: radial-gradient(
       circle at center,
       rgba(26, 26, 26, 0.98) 0%,
@@ -46,13 +46,13 @@
 
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 1000; // Ниже кнопки, но выше всего остального контента
-    
+
     // Внутренний контейнер для ссылок, чтобы они не прилипали к краям
     div {
       display: flex;
@@ -62,7 +62,7 @@
     }
   }
 
-  &__link {
+  &Link {
     font-family: var(--font-heading);
     text-align: center;
     padding: 20px;

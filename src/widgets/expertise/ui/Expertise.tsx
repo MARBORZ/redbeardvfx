@@ -8,20 +8,15 @@
  *     Навыки сгруппированы по категориям и раскрываются слева при прокрутке.
  */
 
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import { motion } from "motion/react";
 import { SectionHeader } from "@shared/ui/section-header/SectionHeader";
 import { skills } from "@shared/lib/data";
 import { revealLeft, premiumStagger } from "@shared/lib/animationVariants";
 import { useConditionalAnimation } from "@shared/lib/useConditionalAnimation";
-import { useScrollPerspective } from "@shared/lib/useScrollPerspective";
-import { useIsMobile } from "@shared/lib/useIsMobile";
 import styles from "./Expertise.module.scss";
 
 export const Expertise: FC = () => {
-  const [isWideScreen, setIsWideScreen] = useState(false);
-  const isMobile = useIsMobile();
-  const { elementRef, getTransform } = useScrollPerspective();
   const itemAnimation = useConditionalAnimation(revealLeft);
   const containerAnimation = useConditionalAnimation({
     initial: "hidden",
@@ -30,68 +25,33 @@ export const Expertise: FC = () => {
     variants: premiumStagger,
   });
 
-  useEffect(() => {
-    const checkWidth = () => setIsWideScreen(window.innerWidth >= 1440);
-    checkWidth();
-    window.addEventListener("resize", checkWidth);
-    return () => window.removeEventListener("resize", checkWidth);
-  }, []);
-
-  if (isMobile) {
-    return (
-      <section className={styles.expertise} id="services">
-        <div className={styles.expertise__container}>
-          <SectionHeader label="Technical Expertise" title="The Pipeline" />
-          <div
-            ref={elementRef as any}
-            className={styles["expertise__grid"]}
-            style={{ transform: "none" }}
-          >
-            {skills.map((skill) => (
-              <article key={skill.id} className={styles["expertise__card"]}>
-                <div className={styles["expertise__card-header"]}>
-                  <h3 className={styles["expertise__card-name"]}>
-                    {skill.name}
-                  </h3>
-                </div>
-                <h4 className={styles["expertise__card-title"]}>
-                  {skill.title}
-                </h4>
-                <p className={styles["expertise__card-description"]}>
-                  {skill.description}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section className={styles.expertise} id="services">
-      <div className={styles.expertise__container}>
+      <div className={styles.expertiseContainer}>
         <SectionHeader label="Technical Expertise" title="The Pipeline" />
         <motion.div
-          ref={elementRef as any}
-          className={styles["expertise__grid"]}
-          style={{ transform: isWideScreen ? getTransform() : "none" }}
+          className={styles.expertiseGrid}
           {...containerAnimation}
         >
           {skills.map((skill) => (
-            <motion.article
+            <motion.a
               key={skill.id}
-              className={styles["expertise__card"]}
+              id={`expertise-${skill.id}`}
+              href="#works"
+              className={styles.expertiseCard}
               {...itemAnimation}
+              whileHover={{ y: -8, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              <div className={styles["expertise__card-header"]}>
-                <h3 className={styles["expertise__card-name"]}>{skill.name}</h3>
+              <div className={styles.expertiseCardHeader}>
+                <h3 className={styles.expertiseCardName}>{skill.name}</h3>
               </div>
-              <h4 className={styles["expertise__card-title"]}>{skill.title}</h4>
-              <p className={styles["expertise__card-description"]}>
+              <h4 className={styles.expertiseCardTitle}>{skill.title}</h4>
+              <p className={styles.expertiseCardDescription}>
                 {skill.description}
               </p>
-            </motion.article>
+            </motion.a>
           ))}
         </motion.div>
       </div>

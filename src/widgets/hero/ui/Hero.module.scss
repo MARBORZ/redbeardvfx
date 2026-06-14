@@ -10,20 +10,24 @@
   background-color: var(--bg-primary);
   overflow: hidden;
 
-  &__container {
+  &Container {
     position: relative;
     z-index: 10;
     max-width: 1500px;
     margin: 0 auto;
-    padding: 0 var(--spacing-xl);
+    padding: 0 var(--spacing-lg);
     width: 100%;
+
+    @include respond-to('md') {
+      padding: 0 var(--spacing-xl);
+    }
   }
 
-  &__content {
+  &Content {
     text-align: center;
   }
 
-  &__label {
+  &Label {
     font-family: var(--font-heading);
     font-size: 0.55rem;
     font-weight: 700;
@@ -51,7 +55,7 @@
     }
   }
 
-  &__title {
+  &Title {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -79,7 +83,7 @@
     }
   }
 
-  &__subtitle {
+  &Subtitle {
     font-size: 0.8rem;
     color: var(--text-secondary);
     margin-bottom: var(--spacing-md);
@@ -108,12 +112,12 @@
     }
   }
 
-  &__cta {
+  &Cta {
     display: flex;
     justify-content: center;
   }
 
-  &__background {
+  &Background {
     position: absolute;
     top: 0;
     left: 0;
@@ -124,7 +128,7 @@
     overflow: hidden;
   }
 
-  &__video {
+  &Video {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -135,7 +139,7 @@
     z-index: 1;
   }
 
-  &__overlay {
+  &Overlay {
     position: absolute;
     top: 0;
     left: 0;

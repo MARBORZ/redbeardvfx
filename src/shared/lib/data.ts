@@ -38,6 +38,14 @@ export const projects: IProject[] = [
     width: 2,
   },
   {
+    id: 'alien-invasion',
+    title: 'Alien Invasion',
+    description: 'Creature design and invasion sequence integration',
+    image: 'https://picsum.photos/seed/alien/800/500',
+    tags: ['VFX', 'Creature', 'Compositing'],
+    width: 2,
+  },
+  {
     id: 'space-battle',
     title: 'Space Battle',
     description: 'Zero-G combat sequences and space elements',
@@ -64,22 +72,22 @@ export const projects: IProject[] = [
 
 export const skills: ISkill[] = [
   {
-    id: 'nuke',
-    name: 'Nuke',
-    title: 'Compositing & VFX',
-    description: 'Professional-grade compositing and digital effects creation with Nuke framework',
+    id: 'compositing',
+    name: 'Compositing',
+    title: 'Visual Effects & Compositing',
+    description: 'Seamless integration of CGI, live-action plates, and digital effects using Nuke, After Effects, and Fusion.',
   },
   {
-    id: 'blender',
-    name: 'Blender',
-    title: 'Modeling & Animation',
-    description: '3D modeling, animation, and rendering for visual effects sequences',
+    id: '3d',
+    name: '3D',
+    title: 'Modeling, Animation & Rendering',
+    description: 'Building and animating 3D assets and environments with Blender, 3ds Max, Maya, Cinema 4D, and ZBrush.',
   },
   {
-    id: 'matchmoving',
-    name: 'MatchMoving',
-    title: 'Camera Tracking',
-    description: 'Advanced camera tracking and 3D geometry for seamless integration',
+    id: 'tracking',
+    name: 'Tracking',
+    title: 'Camera Tracking & MatchMoving',
+    description: 'Precise camera and object tracking for realistic 3D integration using 3DEqualizer, SynthEyes, PFTrack, and Blender.',
   },
 ];
 
