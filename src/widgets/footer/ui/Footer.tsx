@@ -7,7 +7,7 @@
  */
 
 import { FC } from "react";
-import { socials } from "@shared/lib/data";
+import { heroSocials } from "@shared/lib/data";
 import styles from "./Footer.module.scss";
 
 export const Footer: FC = () => {
@@ -15,7 +15,7 @@ export const Footer: FC = () => {
     <footer className={styles.footer} id="contact">
       <div className={styles.footerContainer}>
         <div className={styles.footerSocialsLinks}>
-          {socials.map((social) => (
+          {heroSocials.map((social) => (
             <a
               key={social.name}
               href={social.url}

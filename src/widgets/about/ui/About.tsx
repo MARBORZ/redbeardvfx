@@ -26,8 +26,8 @@ import silverSkates from '@assets/film_cards/silver-skates.png'
 const filmCards = [
   { src: worldChampion, alt: 'World Champion' },
   { src: bremenMusicians, alt: 'The Bremen Musicians' },
-  { src: vysotsky, alt: 'Vysotsky. Thank God I\'m Alive' },
   { src: theManInTheHighCastle, alt: 'The Man in the High Castle'},
+  { src: vysotsky, alt: 'Vysotsky. Thank God I\'m Alive' },
   { src: emeraldTown, alt: 'Emerald Town' },
   { src: silverSkates, alt: 'Silver Skates' },
   { src: nightGuards, alt: 'Night Guards' },

@@ -160,20 +160,13 @@ export const clients: IClient[] = [
   { id: 'cgf', name: 'CGF', logo: '/images/clients/cgf.svg', url: 'https://cgfww.com/' },
   { id: 'mr-post', name: 'Mr.Post', logo: '/images/clients/mrpost.svg', url: 'https://www.mrpost.ru/ru' },
   { id: 'mosfilm', name: 'Mosfilm', logo: '/images/clients/mosfilm.png', url: 'https://www.mosfilm.ru/', invert: true },
-  { id: 'direktsiya-kino', name: 'Дирекция кино', logo: '/images/clients/direktsiya-kino.svg', url: 'https://www.instagram.com/direktsiiakino/' },
+  { id: 'direktsiya-kino', name: 'Direktsiya Kino', logo: '/images/clients/direktsiya-kino.svg', url: 'https://www.instagram.com/direktsiiakino/' },
   { id: 'cinemagrad', name: 'Cinemagrad', logo: '/images/clients/cinemagrad.png', url: 'https://cinemagrad.ru/', invert: true },
 ];
 
 export const bio = `Rustam Masuev is a seasoned VFX Supervisor and Compositing Artist with over 15 years of experience in the entertainment industry. Specializing in high-end compositing, 3D integration, and visual effects supervision, Rustam has contributed to numerous award-winning films and TV series.
 
 His expertise spans the complete VFX pipeline, from initial concept through final delivery, with a particular focus on complex compositing work and photorealistic integration of CGI elements. Known for problem-solving abilities and attention to detail, Rustam collaborates effectively with departments across the production pipeline.`;
-
-export const socials = [
-  { name: 'LinkedIn', url: 'https://linkedin.com/in/redbeardvfx', icon: 'linkedin' },
-  { name: 'IMDb', url: 'https://imdb.com/name/redbeardvfx', icon: 'imdb' },
-  { name: 'ArtStation', url: 'https://artstation.com/redbeardvfx', icon: 'artstation' },
-  { name: 'Instagram', url: 'https://instagram.com/redbeardvfx', icon: 'instagram' },
-];
 
 export const heroSocials = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/rustam-masuev-82728696/', icon: '/socials/linkedin.svg' },
