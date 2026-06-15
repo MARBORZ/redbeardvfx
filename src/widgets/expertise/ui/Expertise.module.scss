@@ -23,11 +23,11 @@
     }
 
     @include respond-to('md') {
-      grid-template-columns: repeat(3, 1fr);
       gap: var(--spacing-xl);
     }
 
     @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--spacing-2xl);
     }
   }

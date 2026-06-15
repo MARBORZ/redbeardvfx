@@ -1,3 +1,4 @@
+import './styles/tailwind.css'
 import './styles/global.scss'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './providers/Router'

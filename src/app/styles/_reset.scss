@@ -1,58 +1,63 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+// Same cascade layer as Tailwind's preflight, so Tailwind utilities
+// (in the higher-priority `utilities` layer) can still override base
+// resets like `* { padding: 0 }`.
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-html,
-body {
-  height: 100%;
-}
+  html,
+  body {
+    height: 100%;
+  }
 
-body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
-}
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
 
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-}
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
 
-ul,
-ol {
-  list-style: none;
+  ul,
+  ol {
+    list-style: none;
+  }
 }

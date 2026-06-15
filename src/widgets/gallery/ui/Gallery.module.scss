@@ -185,18 +185,34 @@
     }
   }
 
+  &CardVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    @include smooth-transition(opacity, var(--transition-fast));
+  }
 
-  &CardNumber {
+  &CardVideoActive {
+    opacity: 1;
+  }
+
+  &CardIcon {
     position: absolute;
     top: 16px;
-    left: 16px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: clamp(1.2rem, 3vw, 2rem);
-    font-weight: 400;
-    font-family: var(--font-heading);
-    letter-spacing: 2px;
+    right: 16px;
+    width: clamp(50px, 6vw, 75px);
+    height: clamp(50px, 6vw, 75px);
     pointer-events: none;
     z-index: 2;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 5px 50px rgba(0, 0, 0, 0.5));
+    }
   }
 
   &CardLabel {
@@ -211,6 +227,13 @@
     text-transform: uppercase;
     pointer-events: none;
     z-index: 2;
+    @include smooth-transition(opacity, var(--transition-fast));
+  }
+
+  &Card:hover &CardLabel {
+    @include respond-to('md') {
+      opacity: 0;
+    }
   }
 
   &Overlay {
@@ -235,21 +258,6 @@
     background-color: var(--bg-card);
     border-radius: 4px;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
-
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(255, 255, 255, 0.15);
-      border-radius: 3px;
-    }
   }
 
   &OverlayImage {

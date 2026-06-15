@@ -12,14 +12,53 @@
 
 import { motion, AnimatePresence } from 'motion/react'
 import { SectionHeader } from '@shared/ui/section-header/SectionHeader'
+import { Skeleton } from '@shared/ui/skeleton'
 import { projects, IProject } from '@shared/lib/data'
 import { useConditionalAnimation } from '@shared/lib/useConditionalAnimation'
 import { useScrollPerspective } from '@shared/lib/useScrollPerspective'
 import { useMediaQuery } from '@shared/lib/useMediaQuery'
 import { staggerItemAnimation } from '@shared/lib/animationConfig'
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import styles from './Gallery.module.scss'
+
+const GalleryCardMedia: FC<{ project: IProject; isHovered: boolean }> = ({ project, isHovered }) => {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    if (isHovered) {
+      video.currentTime = 0
+      video.play().catch(() => {})
+    } else {
+      video.pause()
+    }
+  }, [isHovered])
+
+  return (
+    <div className={styles.galleryCardImage}>
+      {!imageLoaded && <Skeleton />}
+      <img
+        src={project.image}
+        alt={project.title}
+        loading="lazy"
+        onLoad={() => setImageLoaded(true)}
+      />
+      <video
+        ref={videoRef}
+        className={`${styles.galleryCardVideo} ${isHovered ? styles.galleryCardVideoActive : ''}`}
+        src={project.video}
+        muted
+        loop
+        playsInline
+        preload="none"
+      />
+    </div>
+  )
+}
 
 export const Gallery: FC = () => {
   const isWideScreen = useMediaQuery('(min-width: 1440px)')
@@ -33,8 +72,29 @@ export const Gallery: FC = () => {
     transition: { staggerChildren: 0.08, delayChildren: 0.1 },
   })
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false })
   const [activeProject, setActiveProject] = useState<IProject | null>(null)
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const [canScrollPrev, setCanScrollPrev] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(false)
+
+  useEffect(() => {
+    if (!emblaApi) return
+
+    const updateCanScroll = () => {
+      setCanScrollPrev(emblaApi.canScrollPrev())
+      setCanScrollNext(emblaApi.canScrollNext())
+    }
+
+    updateCanScroll()
+    emblaApi.on('select', updateCanScroll)
+    emblaApi.on('reInit', updateCanScroll)
+
+    return () => {
+      emblaApi.off('select', updateCanScroll)
+      emblaApi.off('reInit', updateCanScroll)
+    }
+  }, [emblaApi])
 
   // Sliding 3-column x 2-row window: each step advances by one column (2 cards).
   const WINDOW_SIZE = 6
@@ -56,17 +116,15 @@ export const Gallery: FC = () => {
           <div className={styles.galleryMobile}>
             <div className={styles.galleryViewport} ref={emblaRef}>
               <div className={styles.galleryEmblaContainer}>
-                {projects.map((project, idx) => (
+                {projects.map((project) => (
                   <motion.article
                     key={project.id}
                     className={styles.galleryCard}
                     onClick={() => setActiveProject(project)}
                   >
-                    <div className={styles.galleryCardImage}>
-                      <img src={project.image} alt={project.title} />
-                    </div>
-                    <div className={styles.galleryCardNumber}>
-                      {String(idx + 1).padStart(2, '0')}
+                    <GalleryCardMedia project={project} isHovered={false} />
+                    <div className={styles.galleryCardIcon}>
+                      <img src={project.icon} alt={project.software} loading="lazy" />
                     </div>
                     <div className={styles.galleryCardLabel}>
                       {project.title}
@@ -80,6 +138,7 @@ export const Gallery: FC = () => {
               <button
                 type="button"
                 aria-label="Previous project"
+                disabled={!canScrollPrev}
                 className={`${styles.galleryPagerArrow} ${styles.galleryPagerArrowPrev}`}
                 onClick={() => emblaApi?.scrollPrev()}
               />
@@ -87,6 +146,7 @@ export const Gallery: FC = () => {
               <button
                 type="button"
                 aria-label="Next project"
+                disabled={!canScrollNext}
                 className={`${styles.galleryPagerArrow} ${styles.galleryPagerArrowNext}`}
                 onClick={() => emblaApi?.scrollNext()}
               />
@@ -109,7 +169,7 @@ export const Gallery: FC = () => {
 
             <div className={styles.galleryPagedGrid}>
               <AnimatePresence mode="popLayout" initial={false}>
-                {visibleProjects.map((project, idx) => (
+                {visibleProjects.map((project) => (
                   <motion.div
                     key={project.id}
                     layout
@@ -120,12 +180,15 @@ export const Gallery: FC = () => {
                     transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], layout: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }}
                     {...itemAnimation}
                   >
-                    <article className={styles.galleryCard} onClick={() => setActiveProject(project)}>
-                      <div className={styles.galleryCardImage}>
-                        <img src={project.image} alt={project.title} />
-                      </div>
-                      <div className={styles.galleryCardNumber}>
-                        {String(start + idx + 1).padStart(2, '0')}
+                    <article
+                      className={styles.galleryCard}
+                      onClick={() => setActiveProject(project)}
+                      onMouseEnter={() => setHoveredId(project.id)}
+                      onMouseLeave={() => setHoveredId(null)}
+                    >
+                      <GalleryCardMedia project={project} isHovered={hoveredId === project.id} />
+                      <div className={styles.galleryCardIcon}>
+                        <img src={project.icon} alt={project.software} loading="lazy" />
                       </div>
                       <div className={styles.galleryCardLabel}>
                         {project.title}
@@ -166,12 +229,21 @@ export const Gallery: FC = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className={styles.galleryOverlayImage}>
-                <img src={activeProject.image} alt={activeProject.title} />
+                <video
+                  key={activeProject.id}
+                  src={activeProject.video}
+                  poster={activeProject.image}
+                  controls
+                  autoPlay
+                  loop
+                  playsInline
+                />
               </div>
               <div className={styles.galleryOverlayContent}>
                 <h3 className={styles.galleryOverlayTitle}>{activeProject.title}</h3>
                 <p className={styles.galleryOverlayDescription}>{activeProject.description}</p>
                 <div className={styles.galleryOverlayTags}>
+                  <span className={styles.galleryOverlayTag}>{activeProject.software}</span>
                   {activeProject.tags.map((tag) => (
                     <span key={tag} className={styles.galleryOverlayTag}>{tag}</span>
                   ))}

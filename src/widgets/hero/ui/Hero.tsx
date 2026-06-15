@@ -8,9 +8,10 @@
  *     Отображает видео в качестве фона с оверлеем. Анимации отключены на мобильных для производительности.
  * */
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { motion } from "motion/react";
 import { Button } from "@shared/ui/button/Button";
+import { Skeleton } from "@shared/ui/skeleton";
 import {
   fadeUpAnimation,
   titleRevealAnimation,
@@ -29,6 +30,7 @@ export const Hero: FC = () => {
   const subtitleAnimation = useEnterAnimation(fadeUpAnimation.variants, 0.3);
   const ctaAnimation = useEnterAnimation(floatInAnimation.variants, 0.5);
   const socialsAnimation = useEnterAnimation(revealRight, 0.7);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   return (
     <section className={styles.hero}>
@@ -42,7 +44,7 @@ export const Hero: FC = () => {
             aria-label={social.name}
             className={styles.heroSocialLink}
           >
-            <img src={social.icon} alt="" />
+            <img src={social.icon} alt="" loading="lazy" />
           </a>
         ))}
       </motion.div>
@@ -74,12 +76,14 @@ export const Hero: FC = () => {
         </div>
       </div>
       <div className={styles.heroBackground}>
+        {!videoLoaded && <Skeleton className={styles.heroVideoSkeleton} />}
         <video
           className={styles.heroVideo}
           autoPlay
           muted
           loop
           playsInline
+          onLoadedData={() => setVideoLoaded(true)}
         >
           <source src={reelVideo} type="video/mp4" />
         </video>

@@ -11,7 +11,7 @@
 import { useState, FC, MouseEvent } from "react";
 import { BurgerMenu } from "@shared/ui/burger-menu";
 import styles from "./Header.module.scss";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface NavItem {
   href: string
@@ -67,7 +67,7 @@ export const Header: FC = () => {
   };
 
   return (
-    <header className={styles.header}>
+    <header className="sticky top-0 z-[100] min-h-16 py-4 md:min-h-0 md:py-5 bg-[#111111]/75 backdrop-blur-lg border-b border-white/6">
       <div className={styles.headerContainer}>
         <div className={styles.headerLogo}>
           <a href="/" onClick={handleLogoClick}>
