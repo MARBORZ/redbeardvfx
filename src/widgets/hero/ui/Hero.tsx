@@ -22,7 +22,7 @@ import { useEnterAnimation } from "@shared/lib/useEnterAnimation";
 import { revealRight } from "@shared/lib/animationVariants";
 import { heroSocials } from "@shared/lib/data";
 import styles from "./Hero.module.scss";
-import reelVideo from "@assets/video/redbeardvfx-reel.mp4";
+import reelVideo from "@assets/hero_demo/redbeardvfx-reel.mp4";
 
 export const Hero: FC = () => {
   const labelAnimation = useConditionalAnimation(fadeUpAnimation);
@@ -48,11 +48,8 @@ export const Hero: FC = () => {
           </a>
         ))}
       </motion.div>
-      <div className={styles.heroContainer}>
-        <div className={styles.heroContent}>
-          <motion.p className={styles.heroLabel} {...labelAnimation}>
-            VFX SUPERVISOR
-          </motion.p>
+      <div className={styles.heroContainer} >
+        <div className={styles.heroContent} >
           <motion.h1 className={styles.heroTitle} {...titleAnimation}>
             Rustam Masuev
           </motion.h1>
@@ -75,7 +72,7 @@ export const Hero: FC = () => {
           </motion.div>
         </div>
       </div>
-      <div className={styles.heroBackground}>
+      <div className={styles.heroBackground} >
         {!videoLoaded && <Skeleton className={styles.heroVideoSkeleton} />}
         <video
           className={styles.heroVideo}

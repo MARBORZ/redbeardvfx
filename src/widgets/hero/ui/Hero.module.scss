@@ -21,34 +21,6 @@
     text-align: center;
   }
 
-  &Label {
-    font-family: var(--font-heading);
-    font-size: 0.55rem;
-    font-weight: 700;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 8px;
-    display: inline-block;
-
-    @include respond-to('sm') {
-      font-size: 0.6rem;
-      letter-spacing: 2px;
-      margin-bottom: var(--spacing-sm);
-    }
-
-    @include respond-to('md') {
-      font-size: 0.65rem;
-      letter-spacing: 2.2px;
-      margin-bottom: var(--spacing-md);
-    }
-
-    @include respond-to('lg') {
-      font-size: 0.7rem;
-      letter-spacing: 2.5px;
-    }
-  }
-
   &Title {
     font-size: 1.5rem;
     font-weight: 700;
@@ -120,6 +92,7 @@
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
+    border-radius: 0 0 var(--border-radius-xl) var(--border-radius-xl);
   }
 
   &Video {
