@@ -12,18 +12,12 @@ import { FC } from 'react'
 import { motion } from 'motion/react'
 import { SectionHeader } from '@shared/ui/section-header/SectionHeader'
 import { clients } from '@shared/lib/data'
-import { floatIn, premiumStagger } from '@shared/lib/animationVariants'
-import { useConditionalAnimation } from '@shared/lib/useConditionalAnimation'
+import { floatIn } from '@shared/lib/animationVariants'
+import { useStaggerAnimation } from '@shared/lib/useStaggerAnimation'
 import styles from './Clients.module.scss'
 
 export const Clients: FC = () => {
-  const itemAnimation = useConditionalAnimation(floatIn)
-  const containerAnimation = useConditionalAnimation({
-    initial: 'hidden',
-    whileInView: 'visible',
-    viewport: { once: true },
-    variants: premiumStagger,
-  })
+  const { itemAnimation, containerAnimation } = useStaggerAnimation(floatIn)
 
   return (
     <section className={styles.clients} id="clients">

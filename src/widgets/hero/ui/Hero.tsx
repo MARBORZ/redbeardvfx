@@ -17,27 +17,35 @@ import {
   floatInAnimation,
 } from "@shared/lib/animationConfig";
 import { useConditionalAnimation } from "@shared/lib/useConditionalAnimation";
+import { useEnterAnimation } from "@shared/lib/useEnterAnimation";
+import { revealRight } from "@shared/lib/animationVariants";
+import { heroSocials } from "@shared/lib/data";
 import styles from "./Hero.module.scss";
 import reelVideo from "@assets/video/redbeardvfx-reel.mp4";
 
 export const Hero: FC = () => {
   const labelAnimation = useConditionalAnimation(fadeUpAnimation);
   const titleAnimation = useConditionalAnimation(titleRevealAnimation);
-  const subtitleAnimation = useConditionalAnimation({
-    initial: "hidden",
-    animate: "visible",
-    variants: fadeUpAnimation.variants,
-    transition: { delay: 0.3 },
-  });
-  const ctaAnimation = useConditionalAnimation({
-    initial: "hidden",
-    animate: "visible",
-    variants: floatInAnimation.variants,
-    transition: { delay: 0.5 },
-  });
+  const subtitleAnimation = useEnterAnimation(fadeUpAnimation.variants, 0.3);
+  const ctaAnimation = useEnterAnimation(floatInAnimation.variants, 0.5);
+  const socialsAnimation = useEnterAnimation(revealRight, 0.7);
 
   return (
     <section className={styles.hero}>
+      <motion.div className={styles.heroSocials} {...socialsAnimation}>
+        {heroSocials.map((social) => (
+          <a
+            key={social.name}
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.name}
+            className={styles.heroSocialLink}
+          >
+            <img src={social.icon} alt="" />
+          </a>
+        ))}
+      </motion.div>
       <div className={styles.heroContainer}>
         <div className={styles.heroContent}>
           <motion.p className={styles.heroLabel} {...labelAnimation}>
@@ -47,7 +55,7 @@ export const Hero: FC = () => {
             Rustam Masuev
           </motion.h1>
           <motion.p className={styles.heroSubtitle} {...subtitleAnimation}>
-            VFX Supervisor | Compositing (Nuke) | 3D Artist (Blender)
+            VFX Supervisor | Compositing | 3D Artist
           </motion.p>
           <motion.div className={styles.heroCta} {...ctaAnimation}>
             <Button

@@ -12,18 +12,12 @@ import { FC } from "react";
 import { motion } from "motion/react";
 import { SectionHeader } from "@shared/ui/section-header/SectionHeader";
 import { skills } from "@shared/lib/data";
-import { revealLeft, premiumStagger } from "@shared/lib/animationVariants";
-import { useConditionalAnimation } from "@shared/lib/useConditionalAnimation";
+import { revealLeft } from "@shared/lib/animationVariants";
+import { useStaggerAnimation } from "@shared/lib/useStaggerAnimation";
 import styles from "./Expertise.module.scss";
 
 export const Expertise: FC = () => {
-  const itemAnimation = useConditionalAnimation(revealLeft);
-  const containerAnimation = useConditionalAnimation({
-    initial: "hidden",
-    whileInView: "visible",
-    viewport: { once: true },
-    variants: premiumStagger,
-  });
+  const { itemAnimation, containerAnimation } = useStaggerAnimation(revealLeft);
 
   return (
     <section className={styles.expertise} id="services">

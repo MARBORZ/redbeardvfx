@@ -11,16 +11,10 @@
   overflow: hidden;
 
   &Container {
+    @include section-container;
     position: relative;
     z-index: 10;
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-lg);
     width: 100%;
-
-    @include respond-to('md') {
-      padding: 0 var(--spacing-xl);
-    }
   }
 
   &Content {
@@ -148,5 +142,45 @@
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 2;
     pointer-events: none;
+  }
+
+  &Socials {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--spacing-sm);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+
+    @include respond-to('md') {
+      left: var(--spacing-lg);
+      gap: var(--spacing-lg);
+    }
+  }
+
+  &SocialLink {
+    display: flex;
+    opacity: 0.8;
+    @include smooth-transition(color, var(--transition-fast));
+    @include smooth-transition(opacity, var(--transition-fast));
+
+    &:hover {
+      color: var(--accent);
+      opacity: 1;
+    }
+
+    img {
+      width: 22px;
+      height: 22px;
+
+      @include respond-to('md') {
+        width: 40px;
+        height: 40px;
+      }
+    }
   }
 }

@@ -10,13 +10,7 @@
   }
 
   &Container {
-    max-width: 1050px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-lg);
-
-    @include respond-to('md') {
-      padding: 0 var(--spacing-xl);
-    }
+    @include section-container(1050px);
   }
 
   &Content {

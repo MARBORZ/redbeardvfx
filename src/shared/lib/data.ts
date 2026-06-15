@@ -126,3 +126,10 @@ export const socials = [
   { name: 'ArtStation', url: 'https://artstation.com/redbeardvfx', icon: 'artstation' },
   { name: 'Instagram', url: 'https://instagram.com/redbeardvfx', icon: 'instagram' },
 ];
+
+export const heroSocials = [
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/rustam-masuev-82728696/', icon: '/socials/linkedin.svg' },
+  { name: 'ArtStation', url: 'https://borzr.artstation.com/', icon: '/socials/artstation.svg' },
+  { name: 'Instagram', url: 'https://www.instagram.com/redbeardvfx/', icon: '/socials/instagram.svg' },
+  { name: 'Email', url: 'mailto:rustammasuev@gmail.com', icon: '/socials/email.svg' },
+];

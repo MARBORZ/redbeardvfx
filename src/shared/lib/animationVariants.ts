@@ -32,7 +32,7 @@ export const revealLeft = {
   },
 }
 
-// Elegant reveal from right - mirrored rotation
+// Elegant reveal from right - mirrors revealLeft
 export const revealRight = {
   hidden: { opacity: 0, x: 70, rotate: 2 },
   visible: {
@@ -44,17 +44,6 @@ export const revealRight = {
       rotate: { duration: 1.3, ease: easeOutExpo },
       opacity: { duration: 0.6, ease: 'easeOut' },
     },
-  },
-}
-
-// Premium scale in - springy, with subtle overshoot
-export const scaleInUp = {
-  hidden: { opacity: 0, y: 40, scale: 0.92 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: springSoft,
   },
 }
 
@@ -84,16 +73,6 @@ export const floatIn = {
   },
 }
 
-// Stagger with longer delays for cinematic effect
-export const stagger = {
-  visible: {
-    transition: {
-      staggerChildren: 0.16,
-      delayChildren: 0.2,
-    },
-  },
-}
-
 // Stagger with premium spacing and slight ease-in-out variety
 export const premiumStagger = {
   visible: {
@@ -102,60 +81,5 @@ export const premiumStagger = {
       delayChildren: 0.3,
       ease: easeInOutCubic,
     },
-  },
-}
-
-export const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.16,
-      delayChildren: 0.2,
-    },
-  },
-}
-
-// Menu animations
-export const menuOpen = {
-  hidden: { opacity: 0, x: 100 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.5,
-      ease: easeOutExpo,
-    },
-  },
-}
-
-export const menuClose = {
-  visible: { opacity: 1, x: 0 },
-  hidden: {
-    opacity: 0,
-    x: 100,
-    transition: {
-      duration: 0.35,
-      ease: easeInOutCubic,
-    },
-  },
-}
-
-export const menuItemStagger = {
-  visible: {
-    transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.1,
-    },
-  },
-}
-
-export const menuItem = {
-  hidden: { opacity: 0, x: 24, rotate: 1 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    rotate: 0,
-    transition: springSoft,
   },
 }

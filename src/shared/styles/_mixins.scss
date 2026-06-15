@@ -30,6 +30,17 @@ $breakpoint-2xl: 1536px;
   }
 }
 
+// Centered section content wrapper with responsive horizontal padding
+@mixin section-container($max-width: var(--content-max-width)) {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+
+  @include respond-to('md') {
+    padding: 0 var(--spacing-xl);
+  }
+}
+
 // Flex helpers
 @mixin flex-center {
   display: flex;
