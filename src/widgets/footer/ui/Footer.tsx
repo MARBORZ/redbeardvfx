@@ -1,13 +1,5 @@
-/**
- * Footer Section Component
- *
- * EN: Displays social media links and copyright information.
- *
- * RU: Отображает ссылки на социальные сети и информацию об авторских правах.
- */
-
 import { FC } from "react";
-import { heroSocials } from "@shared/lib/data";
+import { footerSocials } from "@shared/lib/data";
 import styles from "./Footer.module.scss";
 
 export const Footer: FC = () => {
@@ -15,15 +7,16 @@ export const Footer: FC = () => {
     <footer className={styles.footer} id="contact">
       <div className={styles.footerContainer}>
         <div className={styles.footerSocialsLinks}>
-          {heroSocials.map((social) => (
+          {footerSocials.map((social) => (
             <a
               key={social.name}
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={social.name}
               className={styles.footerSocialLink}
             >
-              {social.name}
+              <img src={social.icon} alt="" loading="lazy" />
             </a>
           ))}
         </div>

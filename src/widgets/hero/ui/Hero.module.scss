@@ -151,7 +151,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-md);
+
+    @include respond-to('sm') {
+      gap: var(--spacing-md);
+    }
 
     @include respond-to('md') {
       top: 0;

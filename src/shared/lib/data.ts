@@ -172,5 +172,8 @@ export const heroSocials = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/rustam-masuev-82728696/', icon: '/socials/linkedin.svg' },
   { name: 'ArtStation', url: 'https://borzr.artstation.com/', icon: '/socials/artstation.svg' },
   { name: 'Instagram', url: 'https://www.instagram.com/redbeardvfx/', icon: '/socials/instagram.svg' },
+  { name: 'IMDb', url: 'https://www.imdb.com/name/nm4969960/', icon: '/socials/imdb.svg' },
   { name: 'Email', url: 'mailto:rustammasuev@gmail.com', icon: '/socials/email.svg' },
 ];
+
+export const footerSocials = heroSocials;
