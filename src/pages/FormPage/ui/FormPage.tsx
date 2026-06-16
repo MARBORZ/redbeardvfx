@@ -55,8 +55,7 @@ export const FormPage: FC = () => {
     setSubmitStatus('idle')
 
     try {
-      const urlAPI = import.meta.env.VITE_URL
-      const response = await fetch(urlAPI, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
