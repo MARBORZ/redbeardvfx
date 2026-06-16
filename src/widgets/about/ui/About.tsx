@@ -19,6 +19,7 @@ import worldChampion from '@assets/film_cards/world-champion.png'
 import theManInTheHighCastle from '@assets/film_cards/the-man-in-the-high-castle.png'
 import emeraldTown from '@assets/film_cards/emerald-town.png'
 import nightGuards from '@assets/film_cards/night-guards.png'
+import persuerSurvivor from '@assets/film_cards/the-persuer-survivor.png'
 import theOptimists from '@assets/film_cards/the-optimists.png'
 import viy3d from '@assets/film_cards/viy-3d.png'
 import silverSkates from '@assets/film_cards/silver-skates.png'
@@ -29,6 +30,7 @@ const filmCards = [
   { src: theManInTheHighCastle, alt: 'The Man in the High Castle'},
   { src: vysotsky, alt: 'Vysotsky. Thank God I\'m Alive' },
   { src: emeraldTown, alt: 'Emerald Town' },
+  { src: persuerSurvivor, alt: 'The Pursuer Survivor' },
   { src: silverSkates, alt: 'Silver Skates' },
   { src: nightGuards, alt: 'Night Guards' },
   { src: viy3d, alt: 'Viy 3D' },
