@@ -10,6 +10,8 @@ import { FC } from 'react'
 import { motion } from 'motion/react'
 import { Link } from 'react-router-dom'
 import { Button } from '@shared/ui/button/Button'
+import { RotatingText } from '@shared/ui/rotating-text'
+import { ctaTitle, ctaPunchlines } from '@shared/lib/data'
 import { titleReveal } from '@shared/lib/animationVariants'
 import { useConditionalAnimation } from '@shared/lib/useConditionalAnimation'
 import styles from './Cta.module.scss'
@@ -27,10 +29,8 @@ export const Cta: FC = () => {
       <div className={styles.ctaContainer}>
         <motion.div {...titleAnimation}>
           <p className={styles.ctaLabel}>Start a Project</p>
-          <h2 className={styles.ctaTitle}>Let's create something incredible.</h2>
-          <p className={styles.ctaSubtitle}>
-            From blockbuster VFX sequences to indie passion projects — ready to bring your vision to life with industry-grade compositing and pipeline expertise.
-          </p>
+          <h2 className={styles.ctaTitle}>{ctaTitle}</h2>
+          <RotatingText items={ctaPunchlines} className={styles.ctaSubtitle} />
         </motion.div>
         <motion.div
           className={styles.ctaButton}

@@ -14,6 +14,7 @@ import { SectionHeader } from "@shared/ui/section-header/SectionHeader";
 import { skills } from "@shared/lib/data";
 import { revealLeft } from "@shared/lib/animationVariants";
 import { useStaggerAnimation } from "@shared/lib/useStaggerAnimation";
+import { handleSectionClick } from "@shared/lib/scrollToSection";
 import styles from "./Expertise.module.scss";
 
 export const Expertise: FC = () => {
@@ -32,6 +33,7 @@ export const Expertise: FC = () => {
               key={skill.id}
               id={`expertise-${skill.id}`}
               href="#works"
+              onClick={handleSectionClick}
               className={styles.expertiseCard}
               {...itemAnimation}
               whileHover={{ y: -8, scale: 1.02 }}

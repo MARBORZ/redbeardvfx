@@ -18,6 +18,8 @@
   }
 
   &Content {
+    width: 50%;
+    margin: 0 auto;
     text-align: center;
   }
 
@@ -152,6 +154,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--spacing-md);
+
 
     @include respond-to('sm') {
       gap: var(--spacing-md);

@@ -1,4 +1,5 @@
 export { Button } from './button'
 export { BurgerMenu } from './burger-menu'
+export { RotatingText } from './rotating-text'
 export { SectionHeader } from './section-header'
 export { Skeleton } from './skeleton'

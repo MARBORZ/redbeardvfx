@@ -19,7 +19,8 @@
     opacity: 0.2;
     z-index: 0;
     transform-origin: center;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transition:
+      transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
       opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 
     &:hover {
@@ -40,8 +41,11 @@
   &Content {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xl);
+    justify-content: center;
     align-items: center;
+    gap: var(--spacing-xl);
+    max-width: 46rem; // ~72ch — комфортная мера строки
+    margin: 0 auto;
 
     @include respond-to('md') {
       gap: var(--spacing-2xl);
@@ -50,30 +54,41 @@
 
   &Text {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
   }
 
+  // Спокойный, ровный абзац — одинаковый для всего текста
   &Bio {
-    font-size: 0.7rem;
+    font-size: 1rem;
     color: var(--text-secondary);
-    line-height: 1.7;
+    line-height: 1.8;
+    letter-spacing: 0.2px;
     text-align: center;
-    letter-spacing: 0.3px;
-
-    @include respond-to('sm') {
-      font-size: 0.98rem;
-      line-height: 1.75;
-    }
 
     @include respond-to('md') {
-      font-size: 1rem;
-      line-height: 1.8;
+      font-size: 1.10rem;
+      line-height: 1.85;
     }
+  }
+
+  // Ключевые слова — те же размер и кегль, просто полужирные и чуть светлее
+  &Highlight {
+    color: var(--text-primary);
+    font-weight: 600;
   }
 
   &Ticker {
     display: flex;
     overflow: hidden;
-    width: 100%;
+    // Full-bleed: лента на всю ширину секции, по центру
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: var(--spacing-2xl);
     mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
   }
 
@@ -92,7 +107,7 @@
       transform: translateX(0);
     }
     to {
-      transform: translateX(-50%); 
+      transform: translateX(-50%);
     }
   }
 

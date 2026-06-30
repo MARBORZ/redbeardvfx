@@ -54,7 +54,7 @@ export const Hero: FC = () => {
             Rustam Masuev
           </motion.h1>
           <motion.p className={styles.heroSubtitle} {...subtitleAnimation}>
-            VFX Supervisor | Compositing | 3D Artist
+            Senior Compositor | Matchmove | VFX Generalist
           </motion.p>
           <motion.div className={styles.heroCta} {...ctaAnimation}>
             <Button

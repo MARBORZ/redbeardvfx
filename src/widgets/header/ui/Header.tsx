@@ -10,6 +10,7 @@
 
 import { useState, FC, MouseEvent } from "react";
 import { BurgerMenu } from "@shared/ui/burger-menu";
+import { handleSectionClick } from "@shared/lib/scrollToSection";
 import styles from "./Header.module.scss";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -33,13 +34,12 @@ const HOME_NAV_ITEMS: NavItem[] = [
 
 export const Header: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isMainPage =
-    typeof window !== "undefined" && window.location.pathname === "/";
-
-  const navItems = isMainPage ? PORTFOLIO_NAV_ITEMS : HOME_NAV_ITEMS;
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const isMainPage = location.pathname === "/";
+  const navItems = isMainPage ? PORTFOLIO_NAV_ITEMS : HOME_NAV_ITEMS;
 
   const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -55,15 +55,8 @@ export const Header: FC = () => {
   };
 
   const handleAnchorClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    const href = e.currentTarget.getAttribute("href");
-    if (href?.startsWith("#")) {
-      e.preventDefault();
-      const element = document.querySelector(href);
-      if (element) {
-        setIsMenuOpen(false);
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
+    setIsMenuOpen(false);
+    handleSectionClick(e);
   };
 
   return (
