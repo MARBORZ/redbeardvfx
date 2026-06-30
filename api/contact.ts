@@ -16,7 +16,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const { error } = await resend.emails.send({
     from: 'noreply@redbeardvfx.work',
-    to: process.env.RESEND_TO_EMAIL ?? 'alimmasuev060@gmail.com',
+    to: process.env.RESEND_TO_EMAIL ?? '',
     subject: `Portfolio contact from ${name}`,
     text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
     replyTo: email,
