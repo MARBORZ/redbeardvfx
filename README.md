@@ -1,5 +1,7 @@
 # redbeardvfx
 
+English · [Norsk](README.no.md)
+
 Portfolio for Rustam Masuev – VFX supervisor and compositor. Client project.
 
 React 19, TypeScript, Vite, SCSS modules, Feature-Sliced Design. Contact form is a Vercel function in `api/`, sends through Resend.
