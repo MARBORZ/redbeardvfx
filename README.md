@@ -1,8 +1,8 @@
 # redbeardvfx
 
-Portfolio site for Rustam Masuev, a VFX supervisor and compositor. Client project.
+Portfolio for Rustam Masuev – VFX supervisor and compositor. Client project.
 
-React 19, TypeScript, Vite, SCSS modules. Folder layout follows Feature-Sliced Design. The contact form is a Vercel serverless function in `api/` that sends mail through Resend.
+React 19, TypeScript, Vite, SCSS modules, Feature-Sliced Design. Contact form is a Vercel function in `api/`, sends through Resend.
 
 ## Run
 
@@ -12,4 +12,4 @@ npm run dev
 npm test
 ```
 
-The form needs `RESEND_API_KEY` and `RESEND_TO_EMAIL` set in Vercel or a local `.env`.
+Form needs `RESEND_API_KEY` and `RESEND_TO_EMAIL` in Vercel or local `.env`.
